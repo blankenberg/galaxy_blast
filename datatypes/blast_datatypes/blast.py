@@ -185,7 +185,7 @@ class BlastNucDb( _BlastDb, Data ):
     """Class for nucleotide BLAST database files."""
     file_ext = 'blastdbn'
     allow_datatype_change = False
-    composite_type = 'auto_primary_file'
+    composite_type = 'basic'
 
     def __init__(self, **kwd):
         Data.__init__(self, **kwd)
@@ -213,7 +213,7 @@ class BlastProtDb( _BlastDb, Data ):
     """Class for protein BLAST database files."""
     file_ext = 'blastdbp'
     allow_datatype_change = False
-    composite_type = 'auto_primary_file'
+    composite_type = 'basic'
 
     def __init__(self, **kwd):
         Data.__init__(self, **kwd)
