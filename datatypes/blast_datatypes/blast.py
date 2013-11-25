@@ -176,6 +176,11 @@ class _BlastDb(object):
             #Change nothing - important for the unit tests to access child files:
             return Data.display_data(self, trans, data, preview, filename,
                                      to_ext, size, offset, **kwd)
+        if to_ext:
+            #Change nothing - important for downloading as a ZIP file:
+            return Data.display_data(self, trans, data, preview, filename,
+                                     to_ext, size, offset, **kwd)
+        #Override to construct an HTML file to show to the user:
         if self.file_ext == "blastdbn":
             title = "This is a nucleotide BLAST database"
         elif self.file_ext =="blastdbp":
