@@ -202,6 +202,28 @@ class _BlastDb(object):
         #Galaxy assumes HTML for the display of composite datatypes,
         return "<html><head><title>%s</title></head><body><pre>%s</pre></body></html>" % (title, msg)
 
+    def _archive_main_file(self, archive, outfname, data_filename):
+        """Called from _archive_composite_dataset to add any central file to archive."""
+        error, msg, messagetype = False, "", ""
+        
+        try:
+            handle = open(data_filename, "rU")
+            data = handle.read().strip()
+            handle.close()
+        except Exception, err:
+            return True, "Error reading file: %s" % err, "error"
+
+        if data:
+            #Save the plain text dummy central file as blastdb.log
+            try:
+                archive.add(data_filename, "blastdb.log")
+            except IOError:
+                error = True
+                log.exception("Unable to add blastdb.log temporary library download archive")
+                msg = "Unable to create archive for download, please report this error"
+                messagetype = "error"
+        return error, msg, messagetype
+
     def merge(split_files, output_file):
         """Merge BLAST databases (not implemented for now)."""
         raise NotImplementedError("Merging BLAST databases is non-trivial (do this via makeblastdb?)")
